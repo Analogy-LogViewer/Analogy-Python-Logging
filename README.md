@@ -55,3 +55,47 @@ if __name__ == "__main__":
 
 To install Analogy Log Server Windows service download it from the [AnalogyLog Server release section](https://github.com/Analogy-LogViewer/Analogy.LogViewer.gRPC/releases/tag/V0.3.4) and install it as descripte in the release.
 After that, Open Analogy Log Viewer, go to grpc tab and click on real time.
+
+
+the proto file is:
+```proto
+syntax = "proto3";
+import "timestamp.proto";
+
+package greet;
+
+// The greeting service definition.
+service Analogy {
+	// Sends a greeting
+	rpc SubscribeForSendMessages (stream AnalogyLogMessage) returns (AnalogyMessageReply);
+	rpc SubscribeForConsumeMessages (AnalogyConsumerMessage) returns (stream AnalogyLogMessage);
+}
+
+// The request message containing the user's name.
+message AnalogyLogMessage {
+	string Id = 1;
+	google.protobuf.Timestamp Date = 2;
+	string Text =3;
+	string Category =4;
+	string Source =5;
+	string MethodName =6;
+	string FileName =7;
+	int32 LineNumber =8;
+	string Class=9;
+	string MachineName=10;
+	string Level=11;
+	string Module =12;
+	int32 ProcessId =13;
+	int32 ThreadId =14;
+	string User =15;
+	map<string,string> AdditionalInformation=16;
+}
+
+// The response message containing the greetings.
+message AnalogyMessageReply {
+	string message = 1;
+}
+message AnalogyConsumerMessage {
+	string message = 1;
+}
+```
