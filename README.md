@@ -14,7 +14,8 @@ import Analogy_pb2_grpc
 
 def make_message(message):
     return Analogy_pb2.AnalogyLogMessage(
-        Text=message
+        Text=message,
+	Level="Information"
     )
 
 
