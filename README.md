@@ -66,7 +66,6 @@ package greet;
 
 // The greeting service definition.
 service Analogy {
-	// Sends a greeting
 	rpc SubscribeForSendMessages (stream AnalogyLogMessage) returns (AnalogyMessageReply);
 	rpc SubscribeForConsumeMessages (AnalogyConsumerMessage) returns (stream AnalogyLogMessage);
 }
