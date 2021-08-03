@@ -5,3 +5,10 @@
 /src/venv
 /src/__pycache__
 /.vs
+/.idea/vcs.xml
+/.idea/modules.xml
+/.idea/misc.xml
+/.idea/inspectionProfiles/Project_Default.xml
+/.idea/inspectionProfiles/profiles_settings.xml
+/.idea/inspectionProfiles
+/.idea/Analogy-Python-Logging.iml

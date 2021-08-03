@@ -15,15 +15,15 @@ class AnalogyStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.SubscribeForSendMessages = channel.stream_unary(
-                '/greet.Analogy/SubscribeForSendMessages',
-                request_serializer=Analogy__pb2.AnalogyLogMessage.SerializeToString,
+        self.SubscribeForPublishingMessages = channel.stream_unary(
+                '/greet.Analogy/SubscribeForPublishingMessages',
+                request_serializer=Analogy__pb2.AnalogyGRPCLogMessage.SerializeToString,
                 response_deserializer=Analogy__pb2.AnalogyMessageReply.FromString,
                 )
-        self.SubscribeForConsumeMessages = channel.unary_stream(
-                '/greet.Analogy/SubscribeForConsumeMessages',
+        self.SubscribeForConsumingMessages = channel.unary_stream(
+                '/greet.Analogy/SubscribeForConsumingMessages',
                 request_serializer=Analogy__pb2.AnalogyConsumerMessage.SerializeToString,
-                response_deserializer=Analogy__pb2.AnalogyLogMessage.FromString,
+                response_deserializer=Analogy__pb2.AnalogyGRPCLogMessage.FromString,
                 )
 
 
@@ -31,14 +31,14 @@ class AnalogyServicer(object):
     """The greeting service definition.
     """
 
-    def SubscribeForSendMessages(self, request_iterator, context):
+    def SubscribeForPublishingMessages(self, request_iterator, context):
         """Sends a greeting
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def SubscribeForConsumeMessages(self, request, context):
+    def SubscribeForConsumingMessages(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -47,15 +47,15 @@ class AnalogyServicer(object):
 
 def add_AnalogyServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'SubscribeForSendMessages': grpc.stream_unary_rpc_method_handler(
-                    servicer.SubscribeForSendMessages,
-                    request_deserializer=Analogy__pb2.AnalogyLogMessage.FromString,
+            'SubscribeForPublishingMessages': grpc.stream_unary_rpc_method_handler(
+                    servicer.SubscribeForPublishingMessages,
+                    request_deserializer=Analogy__pb2.AnalogyGRPCLogMessage.FromString,
                     response_serializer=Analogy__pb2.AnalogyMessageReply.SerializeToString,
             ),
-            'SubscribeForConsumeMessages': grpc.unary_stream_rpc_method_handler(
-                    servicer.SubscribeForConsumeMessages,
+            'SubscribeForConsumingMessages': grpc.unary_stream_rpc_method_handler(
+                    servicer.SubscribeForConsumingMessages,
                     request_deserializer=Analogy__pb2.AnalogyConsumerMessage.FromString,
-                    response_serializer=Analogy__pb2.AnalogyLogMessage.SerializeToString,
+                    response_serializer=Analogy__pb2.AnalogyGRPCLogMessage.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -69,7 +69,7 @@ class Analogy(object):
     """
 
     @staticmethod
-    def SubscribeForSendMessages(request_iterator,
+    def SubscribeForPublishingMessages(request_iterator,
             target,
             options=(),
             channel_credentials=None,
@@ -79,14 +79,14 @@ class Analogy(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.stream_unary(request_iterator, target, '/greet.Analogy/SubscribeForSendMessages',
-            Analogy__pb2.AnalogyLogMessage.SerializeToString,
+        return grpc.experimental.stream_unary(request_iterator, target, '/greet.Analogy/SubscribeForPublishingMessages',
+            Analogy__pb2.AnalogyGRPCLogMessage.SerializeToString,
             Analogy__pb2.AnalogyMessageReply.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def SubscribeForConsumeMessages(request,
+    def SubscribeForConsumingMessages(request,
             target,
             options=(),
             channel_credentials=None,
@@ -96,8 +96,8 @@ class Analogy(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/greet.Analogy/SubscribeForConsumeMessages',
+        return grpc.experimental.unary_stream(request, target, '/greet.Analogy/SubscribeForConsumingMessages',
             Analogy__pb2.AnalogyConsumerMessage.SerializeToString,
-            Analogy__pb2.AnalogyLogMessage.FromString,
+            Analogy__pb2.AnalogyGRPCLogMessage.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
